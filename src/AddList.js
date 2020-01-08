@@ -7,20 +7,57 @@ constructor(props){
         item: {
             id: '',
             title: '',
-            description: '',
+            description: 'lorem ipsum',
             status: '0',
-            createdAt: Date.getTime()
-        }
+            createdAt: ''
+        },
+        listData: []
     }
 }
 handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = '' + d.getHours(),
+        minute = '' + d.getMinutes()
 
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    if (hour.length < 2) 
+        hour = '0' + hour;
+    if (minute.length < 2) 
+        minute = '0' + minute;
+
+    var z = year + '-' + month + '-' + day + ' ' + hour + ':' + minute
+    this.setState({
+        item: {
+            id: '',
+            title: '',
+            description: 'lorem ipsum',
+            status: '0',
+            createdAt: z
+        },
+        // listData: [...this.props, this.state.item],
     })
     console.log(this.props)
-    console.log(this.state.item)
+    
 }
+
+handleChange = (event) => {
+    this.setState({
+        item : {
+            title: event.target.value,
+            description: 'lorem ipsum',
+            status: '0',
+            createdAt: ''
+        } 
+    })
+}
+
 
     render(){
         return(
@@ -28,11 +65,7 @@ handleSubmit = (event) => {
                 <form onSubmit={this.handleSubmit}>
                     <label>title</label> 
                     <br />
-                    <input value={this.state.title} />
-                    <br />
-                    <label>description</label> 
-                    <br />
-                    <input value={this.state.description}/>
+                    <input value={this.state.title} onChange={this.handleChange} />
                     <br />
                     <button>Add</button>
                 </form>
